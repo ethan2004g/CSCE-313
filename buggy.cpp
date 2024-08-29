@@ -1,6 +1,6 @@
 #include <iostream>
-#include <cstring>
-#include <cmath>
+#include <cstring> //for memcpy
+#include <cmath> //used for abs() function
 
 struct Point {
     int x, y;
@@ -15,6 +15,7 @@ class Shape {
 
 public:
   
+    //Constructor
     Shape(int _vertices) : vertices(_vertices) {
 
         points = new Point*[vertices +  1];
@@ -23,21 +24,20 @@ public:
             points[i] = new Point();  
         }
     }
-
+    //Destructor
     ~Shape() {
 
         for (int i = 0; i <= vertices; ++i) {
-            delete points[i];  
+            delete points[i];  //for memory leaks
         }
 
-        delete[] points;  
+        delete[] points;    //for memory leaks
     }
 
-    void addPoints(const Point* pts) {
+    void addPoints(const Point* pts) { //Fixed parameter
 
         for (int i = 0; i < vertices; ++i) {
-            memcpy(points[i], &pts[i], sizeof(Point));  
-            
+            memcpy(points[i], &pts[i], sizeof(Point));   
         }
     }
 
@@ -60,15 +60,10 @@ public:
 };
 
 int main () {
-    // FIXME: create the following points using the three different methods
-    //        of defining structs:
-    //          tri1 = (0, 0)
-    //          tri2 = (1, 2)
-    //          tri3 = (2, 0)
-
+   
    //Method 1
 
-    Point tri1;       // Default constructor, initialized to (0,0)
+    Point tri1;     // Default constructor, initialized to (0,0)
     tri1.x = 0;
     tri1.y = 0;
 
@@ -85,12 +80,7 @@ int main () {
     Shape* tri = new Shape(3);
     tri->addPoints(triPts);
 
-    // FIXME: create the following points using your preferred struct
-    //        definition:
-    //          quad1 = (0, 0)
-    //          quad2 = (0, 2)
-    //          quad3 = (2, 2)
-    //          quad4 = (2, 0)
+    //Using method 3 for easy creation
     Point quad1 = {0,0};
     Point quad2 = {0,2};
     Point quad3 = {2,2};
@@ -101,15 +91,17 @@ int main () {
     Shape* quad = new Shape(4);
     quad->addPoints(quadPts);
 
-    // FIXME: print out area of tri and area of quad
+    //Printing out the Areas for Triangle and Quadrilateral
+
+    // Output area of Triangle
     double* triArea = tri->area();
-    std::cout << "Area of triangle: " << *triArea << std::endl;
+    std::cout << "The Area of the Triangle is " << *triArea << std::endl;
     delete triArea;
     delete tri;
 
     // Output area of quadrilateral
     double* quadArea = quad->area();
-    std::cout << "Area of quadrilateral: " << *quadArea << std::endl;
+    std::cout << "The Area of the Quadrilateral is " << *quadArea << std::endl;
     delete quadArea;
     delete quad;
 
