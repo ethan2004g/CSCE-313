@@ -17,7 +17,7 @@ public:
   
     Shape(int _vertices) : vertices(_vertices) {
 
-        points = new Point*[vertices + 1];
+        points = new Point*[vertices +  1];
 
         for (int i = 0; i <= vertices; ++i) {
             points[i] = new Point();  
