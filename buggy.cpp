@@ -17,16 +17,16 @@ public:
   
     Shape(int _vertices) : vertices(_vertices) {
 
-        points = new Point*[vertices];
+        points = new Point*[vertices + 1];
 
-        for (int i = 0; i < vertices; ++i) {
+        for (int i = 0; i <= vertices; ++i) {
             points[i] = new Point();  
         }
     }
 
     ~Shape() {
 
-        for (int i = 0; i < vertices; ++i) {
+        for (int i = 0; i <= vertices; ++i) {
             delete points[i];  
         }
 
